@@ -1,0 +1,50 @@
+﻿docker run -d --name rabbitmq --rm -it -p 15672:15672 -p 5672:5672 rabbitmq:3-management
+
+
+
+
+
+---------------------------------------
+use docker-mirror-registery
+
+1- goto file 
+vim /etc/docker/daemon.json add these block
+
+{
+  "insecure-registries" : ["https://docker.arvancloud.ir"],
+  "registry-mirrors": ["https://docker.arvancloud.ir"]
+}
+
+or directly push to daemon.json
+
+sudo bash -c 'cat > /etc/docker/daemon.json <<EOF
+{
+  "insecure-registries" : ["https://docker.arvancloud.ir"],
+  "registry-mirrors": ["https://docker.arvancloud.ir"]
+}
+EOF'
+
+
+another mirror is 
+
+sudo bash -c 'cat > /etc/docker/daemon.json <<EOF
+{
+  "insecure-registries" : ["https://docker.nowire.ir "],
+  "registry-mirrors": ["https://docker.nowire.ir "]
+}
+EOF'
+
+
+2-
+docker logout
+sudo systemctl restart docker
+
+3-
+docker pull <ImageName>
+or docker pull docker.arvancloud.ir/<ImageName>
+or docker pull docker.nowire.ir/<ImageName>
+
+---------------------------------------
+
+
+
